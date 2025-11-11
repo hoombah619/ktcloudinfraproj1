@@ -1,0 +1,25 @@
+# 파일 경로: /root/test-gitops-repo/manifests/deployment.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitops-hello-app
+  labels:
+    app: hello-world
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: hello-world
+  template:
+    metadata:
+      labels:
+        app: hello-world
+    spec:
+      containers:
+      - name: webserver
+        # 💡 중요: Harbor 주소 및 프로젝트/이미지 이름
+        # Jenkins가 이 파일의 태그를 변경하게 됩니다.
+        image: 172.16.8.200:30443/test-project/hello-app:v1.0
+        ports:
+        - containerPort: 8080
