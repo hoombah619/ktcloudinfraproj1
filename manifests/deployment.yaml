@@ -20,6 +20,6 @@ spec:
       - name: webserver
         # 💡 중요: Harbor 주소 및 프로젝트/이미지 이름
         # Jenkins가 이 파일의 태그를 변경하게 됩니다.
-        image: 172.16.8.200:30002/test-project/hello-app:v1.0
+        image: 172.16.8.200:30002/test-project/hello-world:v1.0
         ports:
         - containerPort: 8080
