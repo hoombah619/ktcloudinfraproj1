@@ -1,4 +1,4 @@
-# 파일 경로: /root/test-gitops-repo/manifests/deployment.yaml
+# /root/test-gitops-repo/manifests/deployment.yaml
 
 apiVersion: apps/v1
 kind: Deployment
@@ -7,8 +7,6 @@ metadata:
   labels:
     app: hello-world
 spec:
-  imagePullSecrets:       # <--- 이 부분을 추가합니다!
-  - name: harbor-registry-secret # <--- 이 부분을 추가합니다!
   replicas: 2
   selector:
     matchLabels:
@@ -18,10 +16,12 @@ spec:
       labels:
         app: hello-world
     spec:
+      # 프라이빗 레지스트리 인증 정보 사용
+      imagePullSecrets:
+      - name: harbor-registry-secret
       containers:
       - name: webserver
         # 💡 중요: Harbor 주소 및 프로젝트/이미지 이름
-        # Jenkins가 이 파일의 태그를 변경하게 됩니다.
         image: 172.16.8.200:30003/test/test:v1.0
         ports:
         - containerPort: 8080
